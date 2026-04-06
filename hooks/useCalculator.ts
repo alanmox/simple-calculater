@@ -1,6 +1,11 @@
 "use client";
 
-import { useEffect, useEffectEvent, useRef, useState } from "react";
+import {
+  useEffect,
+  useEffectEvent,
+  useRef,
+  useState,
+} from "react";
 import { calculate } from "@/utils/calculate";
 import {
   appendDecimal,
@@ -35,23 +40,39 @@ export function useCalculator() {
   const [expression, setExpression] = useState("");
   const [result, setResult] = useState("0");
   const [error, setError] = useState<string | null>(null);
-  const [history, setHistory] = useState<HistoryItem[]>(() =>
-    readLocalStorage<HistoryItem[]>(HISTORY_STORAGE_KEY, []),
-  );
-  const [theme, setTheme] = useState<"dark" | "light">(() =>
-    readLocalStorage<"dark" | "light">(THEME_STORAGE_KEY, "dark"),
-  );
+  const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  const [isReady, setIsReady] = useState(false);
   const [copied, setCopied] = useState(false);
   const audioContextRef = useRef<AudioContext | null>(null);
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    window.localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(theme));
-  }, [theme]);
+    const timeout = window.setTimeout(() => {
+      setHistory(readLocalStorage<HistoryItem[]>(HISTORY_STORAGE_KEY, []));
+      setTheme(readLocalStorage<"dark" | "light">(THEME_STORAGE_KEY, "dark"));
+      setIsReady(true);
+    }, 0);
+
+    return () => window.clearTimeout(timeout);
+  }, []);
 
   useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+
+    if (!isReady) {
+      return;
+    }
+
+    window.localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(theme));
+  }, [isReady, theme]);
+
+  useEffect(() => {
+    if (!isReady) {
+      return;
+    }
+
     window.localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(history));
-  }, [history]);
+  }, [history, isReady]);
 
   useEffect(() => {
     if (!copied) {
@@ -94,9 +115,9 @@ export function useCalculator() {
   }
 
   function pushHistory(nextExpression: string, nextResult: string) {
-    setHistory((current) => [
+    setHistory([
       { expression: nextExpression, result: nextResult },
-      ...current,
+      ...history,
     ].slice(0, 10));
   }
 
@@ -234,6 +255,7 @@ export function useCalculator() {
     inputDecimal,
     inputDigit,
     inputOperator,
+    isReady,
     result,
     theme,
     toggleTheme,

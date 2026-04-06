@@ -4,26 +4,28 @@
 
 :root {
   --bg: #050812;
-  --glass: rgba(255, 255, 255, 0.06);
-  --glass-strong: rgba(255, 255, 255, 0.12);
-  --text: #e9eef7;
-  --text-soft: rgba(233, 238, 247, 0.72);
+  --glass: rgba(7, 12, 24, 0.84);
+  --glass-strong: rgba(255, 255, 255, 0.18);
+  --text: #f8fbff;
+  --text-soft: rgba(236, 243, 252, 0.86);
   --accent: #1a9cff;
   --muted: #9fb3d0;
   --ring: rgba(90, 200, 250, 0.95);
-  --card-border: rgba(255, 255, 255, 0.08);
+  --card-border: rgba(255, 255, 255, 0.16);
+  --font-space-grotesk: "Trebuchet MS", "Segoe UI", sans-serif;
+  --font-jetbrains-mono: "SFMono-Regular", "Cascadia Mono", "Consolas", monospace;
 }
 
 [data-theme="light"] {
   --bg: #f5f7fb;
-  --glass: rgba(15, 23, 42, 0.05);
-  --glass-strong: rgba(15, 23, 42, 0.1);
-  --text: #0b1021;
-  --text-soft: rgba(11, 16, 33, 0.7);
+  --glass: rgba(255, 255, 255, 0.82);
+  --glass-strong: rgba(15, 23, 42, 0.12);
+  --text: #07111f;
+  --text-soft: rgba(7, 17, 31, 0.76);
   --accent: #0f9bff;
   --muted: #4a5568;
   --ring: rgba(15, 155, 255, 0.95);
-  --card-border: rgba(15, 23, 42, 0.08);
+  --card-border: rgba(7, 17, 31, 0.14);
 }
 
 * {
@@ -32,21 +34,52 @@
 }
 
 body {
-  background: radial-gradient(circle at 20% 20%, rgba(61, 127, 255, 0.18), transparent 25%),
-    radial-gradient(circle at 80% 0%, rgba(255, 111, 145, 0.16), transparent 25%),
-    radial-gradient(circle at 50% 80%, rgba(16, 214, 160, 0.12), transparent 32%),
-    var(--bg);
+  background:
+    linear-gradient(
+      45deg,
+      #1eb53a 0%,
+      #1eb53a 38%,
+      #fcd116 38%,
+      #fcd116 41%,
+      #000000 41%,
+      #000000 59%,
+      #fcd116 59%,
+      #fcd116 62%,
+      #00a3dd 62%,
+      #00a3dd 100%
+    );
   color: var(--text);
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   font-family: var(--font-space-grotesk), system-ui, -apple-system, "Segoe UI", sans-serif;
   transition: background 300ms ease, color 300ms ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background:
+    linear-gradient(rgba(4, 7, 15, 0.44), rgba(4, 7, 15, 0.44)),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.06), transparent 55%);
+  pointer-events: none;
+}
+
+[data-theme="light"] body::before {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.26), rgba(255, 255, 255, 0.26)),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.18), transparent 58%);
+}
+
+.font-theme {
+  font-family: var(--font-space-grotesk), system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 .glass-panel {
   background: var(--glass);
   border: 1px solid var(--card-border);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(18px) saturate(130%);
 }
 
 .focus-ring:focus-visible {

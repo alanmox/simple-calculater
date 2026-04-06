@@ -1,22 +1,9 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains-mono",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "Lumen Calc",
-  description: "Glassmorphic, accessible calculator built with Next.js",
+  title: "ALLANMOX CALCULATOR",
+  description: "A clean and modern calculator experience.",
 };
 
 export default function RootLayout({
@@ -25,10 +12,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      className="font-theme"
       suppressHydrationWarning
     >
-      <body className="min-h-screen antialiased">{children}</body>
+      <body className="h-screen overflow-hidden antialiased">{children}</body>
     </html>
   );
 }

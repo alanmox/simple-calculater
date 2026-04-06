@@ -47,6 +47,7 @@ export default function Calculator() {
     inputDecimal,
     inputDigit,
     inputOperator,
+    isReady,
     result,
     theme,
     toggleTheme,
@@ -83,16 +84,16 @@ export default function Calculator() {
   }
 
   return (
-    <div className="mx-auto grid w-full max-w-6xl gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
-      <section className="glass-panel relative overflow-hidden rounded-[2rem] border border-[color:var(--card-border)] p-4 shadow-glass sm:p-6">
+    <div className="mx-auto grid h-full w-full max-w-5xl items-center gap-4 overflow-hidden lg:grid-cols-[minmax(0,1fr)_300px]">
+      <section className="glass-panel relative overflow-hidden rounded-[2rem] border border-[color:var(--card-border)] p-4 shadow-glass sm:p-5">
         <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-        <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-sm font-medium uppercase tracking-[0.35em] text-[color:var(--text-soft)]">
-              Lumen Calc
+              ALLANMOX CALCULATOR
             </p>
-            <h1 className="mt-2 text-2xl font-semibold tracking-tight text-[color:var(--text)] sm:text-3xl">
-              Premium calculator for keyboard and touch.
+            <h1 className="mt-2 text-xl font-semibold tracking-tight text-[color:var(--text)] sm:text-2xl">
+              Clean calculations, instantly.
             </h1>
           </div>
           <button
@@ -114,7 +115,7 @@ export default function Calculator() {
           result={result}
         />
 
-        <div className="mt-5 grid gap-3">
+        <div className="mt-4 grid gap-3">
           {buttonRows.map((row, rowIndex) => (
             <div className="grid grid-cols-4 gap-3" key={rowIndex}>
               {row.map((button) => (
@@ -155,14 +156,9 @@ export default function Calculator() {
             />
           </div>
         </div>
-
-        <div className="mt-5 rounded-[1.5rem] border border-[color:var(--card-border)] bg-slate-950/35 px-4 py-3 text-sm text-[color:var(--text-soft)]">
-          Keyboard: numbers, <span className="font-mono">+ - * /</span>, Enter,
-          Backspace, Escape.
-        </div>
       </section>
 
-      <aside className="glass-panel rounded-[2rem] border border-[color:var(--card-border)] p-4 shadow-glass sm:p-5">
+      <aside className="glass-panel hidden h-full overflow-hidden rounded-[2rem] border border-[color:var(--card-border)] p-4 shadow-glass lg:block">
         <div className="mb-4 flex items-center justify-between gap-3">
           <div className="flex items-center gap-2 text-[color:var(--text)]">
             <History size={18} />
@@ -179,8 +175,8 @@ export default function Calculator() {
           </button>
         </div>
 
-        <div className="space-y-3">
-          {history.length === 0 ? (
+        <div className="space-y-3 overflow-y-auto pr-1">
+          {!isReady || history.length === 0 ? (
             <p className="rounded-[1.5rem] border border-dashed border-[color:var(--card-border)] bg-white/4 px-4 py-5 text-sm text-[color:var(--text-soft)]">
               Your latest calculations will appear here for quick reuse.
             </p>

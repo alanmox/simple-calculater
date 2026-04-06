@@ -2,14 +2,18 @@
   "name": "calc",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "NEXT_TEST_WASM=1 NEXT_TEST_WASM_DIR=./node_modules/@next/swc-wasm-nodejs next dev --webpack",
+    "build": "NEXT_TEST_WASM=1 NEXT_TEST_WASM_DIR=./node_modules/@next/swc-wasm-nodejs next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run"
   },
   "dependencies": {
+    "@next/swc-wasm-nodejs": "16.2.2",
     "clsx": "^2.1.1",
     "lucide-react": "^0.473.0",
     "next": "16.2.2",

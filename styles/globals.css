@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #050812;
+  --glass: rgba(255, 255, 255, 0.06);
+  --glass-strong: rgba(255, 255, 255, 0.12);
+  --text: #e9eef7;
+  --text-soft: rgba(233, 238, 247, 0.72);
+  --accent: #1a9cff;
+  --muted: #9fb3d0;
+  --ring: rgba(90, 200, 250, 0.95);
+  --card-border: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] {
+  --bg: #f5f7fb;
+  --glass: rgba(15, 23, 42, 0.05);
+  --glass-strong: rgba(15, 23, 42, 0.1);
+  --text: #0b1021;
+  --text-soft: rgba(11, 16, 33, 0.7);
+  --accent: #0f9bff;
+  --muted: #4a5568;
+  --ring: rgba(15, 155, 255, 0.95);
+  --card-border: rgba(15, 23, 42, 0.08);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+body {
+  background: radial-gradient(circle at 20% 20%, rgba(61, 127, 255, 0.18), transparent 25%),
+    radial-gradient(circle at 80% 0%, rgba(255, 111, 145, 0.16), transparent 25%),
+    radial-gradient(circle at 50% 80%, rgba(16, 214, 160, 0.12), transparent 32%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-family: var(--font-space-grotesk), system-ui, -apple-system, "Segoe UI", sans-serif;
+  transition: background 300ms ease, color 300ms ease;
+}
+
+.glass-panel {
+  background: var(--glass);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(16px) saturate(140%);
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 4px;
+}
+
+::selection {
+  background: rgba(26, 156, 255, 0.28);
+}
+
+.button-press {
+  transition: transform 120ms ease, box-shadow 200ms ease;
+}
+
+.button-press:active {
+  transform: translateY(1px) scale(0.98);
+}
+
+.fade-in {
+  animation: fade 280ms ease-out;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
